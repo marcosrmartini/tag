@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Menu principal</title>
+<link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+	rel="stylesheet" />
+<link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.min.css}"
+	rel="stylesheet" />
+<script type="text/javascript" src="/tag/webjars/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="/tag/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<br/><br/><br/><br/>
+
+<nav class="navbar navbar-default" role="navigation">
+   <div class="container">
+   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+         <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Cadastro<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+               <li><a href="#" th:href="@{cadastro/tag}">TAG</a></li>
+            </ul>
+          </li>
+         <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Relatório<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+               <li><a href="#" th:href="@{relatorios/tag}">TAG</a></li>
+            </ul>
+          </li>
+       </ul>
+    </div><!-- /.navbar-collapse -->
+
+    </div>
+</nav>
+
+
+</body>
+</html>
+

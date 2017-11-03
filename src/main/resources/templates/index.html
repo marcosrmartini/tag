@@ -9,35 +9,50 @@
 	rel="stylesheet" />
 <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.min.css}"
 	rel="stylesheet" />
-<script type="text/javascript" src="/tag/webjars/jquery/3.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="/tag/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="/tag/webjars/jquery/3.1.1/jquery.min.js"></script>
+
+<script type="text/javascript"
+	src="/tag/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
 
 </head>
 <body>
+	<div class="text-center">
+		<img th:src="@{/images/logo.png}" height="80" width="300"
+			align="center" />
+	</div>
 
-<br/><br/><br/><br/>
 
-<nav class="navbar navbar-default" role="navigation">
-   <div class="container">
-   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Cadastro<span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-               <li><a href="#" th:href="@{cadastro/tag}">TAG</a></li>
-            </ul>
-          </li>
-         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Relatório<span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-               <li><a href="#" th:href="@{relatorios/tag}">TAG</a></li>
-            </ul>
-          </li>
-       </ul>
-    </div><!-- /.navbar-collapse -->
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-expanded="false">Cadastro<span
+							class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#" th:href="@{cadastro/gerar_tag}">Gerar
+									TAG</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-expanded="false">Relatório<span
+							class="caret"></span></a>
 
-    </div>
-</nav>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#" th:href="@{relatorio/consulta_tags}">Consultar
+									TAGs</a></li>
+							<li><a href="#" th:href="@{relatorio/relatorio_tags}">Relatorio
+									de TAGs</a></li>
+						</ul></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+
+		</div>
+	</nav>
 
 
 </body>

@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Relatório de TAGs</title>
+<style type="text/css">
+.jumbotron {
+	width: 500px;
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+}
+</style>
+
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+	rel="stylesheet" />
+<link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.min.css}"
+	rel="stylesheet" />
+
+
+
+
+</head>
+<body>
+
+	<div class="text-center">
+		<img th:src="@{/images/logo.png}" height="80" width="300"
+			align="center" />
+	</div>
+
+	<div class="jumbotron">
+
+		<form class="form-inline" method="POST" th:object="${tag}"
+			th:action="@{/cadastro/tag}" style="margin: 20px 0">
+
+
+			<div class="form-group">
+				<input type="hidden" class="form-control" placeholder="Id" />
+
+				<table>
+					<tr>
+						<td><span class="label label-default">Nome do cliente:</span></td>
+						<td><select class="form-control" placeholder="Fabricante"
+							style="min-width: 300px;">
+								<option value="" th:text="#{common.select.prompt}"></option>
+								<option th:each="f : ${fabricantes}"
+									th:value="${f.idFabricante}" th:text="${f.razaoSocial}">Fabricante
+									1</option>
+						</select></td>
+					</tr>
+
+					<tr>
+						<td><span class="label label-default">Inicio:</span></td>
+						<td><select id="cboInicio" name="cboInicio" class="form-control" placeholder="Fabricante">
+								<option value="1">Janeiro</option>
+								<option value="2">Fevereiro</option>
+								<option value="3">Março</option>
+								<option value="4">Abril</option>
+								<option value="5">Maio</option>
+								<option value="6">Junho</option>
+								<option value="7">Julho</option>
+								<option value="8">Agosto</option>
+								<option value="9">Setembro</option>
+								<option value="10">Outubro</option>
+								<option value="11">Novembro</option>
+								<option value="12">Dezembro</option>
+						</select></td>
+					</tr>
+
+					<tr>
+						<td><span class="label label-default">Termino:</span></td>
+						<td><select id="cboTermino" name="cboTermino" class="form-control" placeholder="Fabricante">
+								<option value="1">Janeiro</option>
+								<option value="2">Fevereiro</option>
+								<option value="3">Março</option>
+								<option value="4">Abril</option>
+								<option value="5">Maio</option>
+								<option value="6">Junho</option>
+								<option value="7">Julho</option>
+								<option value="8">Agosto</option>
+								<option value="9">Setembro</option>
+								<option value="10">Outubro</option>
+								<option value="11">Novembro</option>
+								<option value="12">Dezembro</option>
+						</select></td>
+					</tr>
+
+					<tr>
+						<td><span class="label label-default">Termino:</span></td>
+						<td></td>
+					</tr>
+
+				</table>
+				
+				<br/>
+
+				<div class="text-center">
+					<button type="button" class="btn btn-primary"
+						style="min-width: 300px;"
+						onclick="location.href='/cadastro/produto'">Consultar</button>
+				</div>
+
+			</div>
+
+
+
+
+
+
+		</form>
+		<a href="#" class="btn btn-sm btn-primary" th:href="${'/tag/index'}">Voltar</a>
+	</div>
+
+</body>
+</html>

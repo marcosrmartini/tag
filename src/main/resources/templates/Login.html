@@ -15,7 +15,8 @@
 <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.min.css}"
 	rel="stylesheet" />
 
-<script type="text/javascript" src="/tag/webjars/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/tag/webjars/jquery/3.1.1/jquery.min.js"></script>
 
 
 <style type="text/css">
@@ -31,7 +32,7 @@ body {
 	margin: 0 auto;
 }
 
-.form-signin .form-signin-heading,.form-signin .checkbox {
+.form-signin .form-signin-heading, .form-signin .checkbox {
 	margin-bottom: 10px;
 }
 
@@ -69,8 +70,7 @@ body {
 </head>
 <body>
 
-	<div th:if="${param.error}">Invalid username and password.</div>
-	<div th:if="${param.logout}">You have been logged out.</div>
+
 
 
 	<div class="container">
@@ -85,9 +85,13 @@ body {
 				<input type="password" class="form-control" placeholder="Senha"
 					name="password" />
 			</div>
+			<div class="alert alert-danger" role="alert" th:if="${param.error}">Usuário ou senha inválido</div>
+			<div class="alert alert-danger" role="alert" th:if="${param.logout}">Você foi deslogado</div>
 			<div>
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
 			</div>
+
+
 		</form>
 
 	</div>

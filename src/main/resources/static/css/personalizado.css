@@ -1,0 +1,28 @@
+.btn-primary-adin {
+  color: #fff;
+  background-color: #ffa100;
+  border-color: #ffa100;
+}
+
+.btn-primary-adin:hover {
+  color: #fff;
+  background-color: #d69302;
+  border-color: #d69302;
+}
+
+.btn-primary-adin:focus, .btn-primary-adin.focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+.btn-primary-adin.disabled, .btn-primary-adin:disabled {
+  background-color: #ffa100;
+  border-color: #ffa100;
+}
+
+.btn-primary-adin:not([disabled]):not(.disabled):active, .btn-primary-adin:not([disabled]):not(.disabled).active,
+.show > .btn-primary-adin.dropdown-toggle {
+  color: #fff;
+  background-color: #d69302;
+  border-color: #d69302;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}

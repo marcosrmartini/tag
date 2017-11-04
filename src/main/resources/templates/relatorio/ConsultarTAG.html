@@ -10,7 +10,7 @@
 <title>Consulta de TAG</title>
 <style type="text/css">
 .jumbotron {
-	width: 500px;
+	width: 400px;
 	margin-top: 20px;
 	margin-left: auto;
 	margin-right: auto;
@@ -22,6 +22,8 @@
 	rel="stylesheet" />
 <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.min.css}"
 	rel="stylesheet" />
+
+<link th:href="@{/css/personalizado.css}" rel="stylesheet" />
 
 <script type="text/javascript"
 	src="/tag/webjars/jquery/3.1.1/jquery.min.js"></script>
@@ -59,7 +61,7 @@
 				<br/>
 
 				<div class="text-center">
-					<button type="button" class="btn btn-primary"
+					<button type="button" class="btn btn-primary-adin"
 						style="min-width: 300px;"
 						onclick="location.href='/cadastro/produto'">Consultar</button>
 				</div>
@@ -72,7 +74,7 @@
 
 
 		</form>
-		<a href="#" class="btn btn-sm btn-primary" th:href="${'/tag/index'}">Voltar</a>
+		<a href="#" class="btn btn-sm btn-primary-adin" th:href="${'/tag/index'}">Voltar</a>
 	</div>
 
 

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Pesquisa TAG</title>
+<style type="text/css">
+.jumbotron {
+	width: 1000px;
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.btn {
+	float: left
+}
+</style>
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+	rel="stylesheet" />
+<link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.min.css}"
+	rel="stylesheet" />
+<link th:href="@{/css/personalizado.css}" rel="stylesheet" />
+
+
+
+<script type="text/javascript"
+	src="/tag/webjars/jquery/3.1.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+	<div class="text-center">
+		<img th:src="@{/images/logo.png}" height="80" width="300"
+			align="center" />
+	</div>
+
+	<div class="jumbotron">
+
+		<form class="form-inline" method="POST" th:object="${customer}"
+			th:action="@{/cadastro/customer/pesquisaTAG}" style="margin: 20px 0">
+
+			<div class="form-group">
+				<input type="hidden" class="form-control" placeholder="Id"
+					th:field="*{id}" />
+
+				<table>
+					<tr>
+						<td><span class="label label-default">Nome/Public Key:</span></td>
+						<td><input type="text" class="form-control"
+							placeholder="Nome do cliente" th:field="*{customerName}"
+							style="min-width: 300px;" /></td>
+					</tr>
+
+
+				</table>
+				<br />
+
+				<div class="text-center">
+					<button type="submit" class="btn btn-primary-adin">Pesquisar</button>
+				</div>
+
+
+			</div>
+
+		</form>
+
+		<div class="panel-body">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>id</th>
+						<th>Name</th>
+						<th>Public key</th>
+						<th>Ação</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="c : ${customers}">
+						<td th:text="${c.id}"></td>
+						<td th:text="${c.customerName}"></td>
+						<td th:text="${c.publicKey}"></td>
+						<td style="width: 35px;"><a href="#"
+							class="btn btn-sm btn-primary-adin"
+							th:href="${'editar/' + c.id}">Abrir</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+
+	</div>
+
+
+</body>
+</html>

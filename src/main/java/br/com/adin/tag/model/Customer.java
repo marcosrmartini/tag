@@ -21,6 +21,9 @@ public class Customer implements Serializable {
 
 	@Column(name="public_key")
 	private String publicKey;
+	
+	@Column(name="customer_name")
+	private String customerName;
 
 	//bi-directional many-to-one association to TrackerConfiguration
 	@OneToMany(mappedBy="customer")
@@ -67,4 +70,15 @@ public class Customer implements Serializable {
 		return trackerConfiguration;
 	}
 
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	
+	
+	
 }

@@ -8,10 +8,14 @@
 <title>Gerar TAG</title>
 <style type="text/css">
 .jumbotron {
-	width: 500px;
+	width: 1000px;
 	margin-top: 20px;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.btn{
+	float:left
 }
 </style>
 <link
@@ -21,8 +25,8 @@
 <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.min.css}"
 	rel="stylesheet" />
 <link th:href="@{/css/personalizado.css}" rel="stylesheet" />
-	
-	
+
+
 
 <script type="text/javascript"
 	src="/tag/webjars/jquery/3.1.1/jquery.min.js"></script>
@@ -37,55 +41,39 @@
 
 	<div class="jumbotron">
 
-		<form class="form-inline" method="POST" th:object="${tag}"
-			th:action="@{/cadastro/tag}" style="margin: 20px 0">
+		<form class="form-inline" method="POST" th:object="${customer}"
+			th:action="@{/cadastro/customer}" style="margin: 20px 0">
+
+			<div class="form-group pull-right">
+				<a href="#" class="btn btn-sm btn-primary-adin" th:href="${'/tag/cadastro/customer/abrirPesquisa'}">Pesquisar</a>
+			</div>
+
 
 
 			<div class="form-group">
-				<input type="hidden" class="form-control" placeholder="Id" />
+				<input type="hidden" class="form-control" placeholder="Id"
+					th:field="*{id}" />
 
 				<table>
 					<tr>
 						<td><span class="label label-default">Nome do cliente:</span></td>
-						<td><select class="form-control" placeholder="Fabricante"
-							style="min-width: 300px;">
-								<option value="" th:text="#{common.select.prompt}"></option>
-								<option th:each="f : ${fabricantes}"
-									th:value="${f.idFabricante}" th:text="${f.razaoSocial}">Fabricante
-									1</option>
-						</select></td>
+						<td><input type="text" class="form-control"
+							placeholder="Nome do cliente" th:field="*{customerName}"
+							style="min-width: 300px;" /></td>
 					</tr>
 
 					<tr>
-						<td><span class="label label-default">URL</span></td>
-						<td><input type="text" class="form-control" placeholder="URL"
+						<td><span class="label label-default">Public Key</span></td>
+						<td><input type="text" class="form-control"
+							placeholder="PublicKey" th:field="*{publicKey}"
 							style="min-width: 300px;" /></td>
-					</tr>
-					
-					<tr>
-						<td><span class="label label-default">Nome do cliente:</span></td>
-						<td><select class="form-control" placeholder="Fabricante"
-							style="min-width: 300px;">
-								<option value="" th:text="#{common.select.prompt}"></option>
-								<option value="http" >http</option>
-								<option value="https" >https</option>
-								<option value="popuin" >popuin</option>
-								
-								
-						</select></td>
 					</tr>
 
 				</table>
-<br/>
+				<br />
 
 				<div class="text-center">
-					<button type="button" class="btn btn-primary-adin"
-						style="min-width: 300px;"
-						onclick="location.href='/cadastro/produto'">Gerar TAG</button>
-						
-					<button type="submit" class="btn btn-primary-adin"
-						style="min-width: 300px;">Salvar</button>
-
+					<button type="submit" class="btn btn-primary-adin">Adicionar</button>
 				</div>
 
 
@@ -96,12 +84,350 @@
 
 
 
+		</form>
+
+
+
+
+		<form class="form-inline" method="POST" th:object="${urlsToTrack}"
+			th:action="@{/cadastro/customer/url}" style="margin: 20px 0">
+
+			<h2>Urls to track</h2>
+
+			<div class="form-group">
+				<input type="hidden" class="form-control" placeholder="Id"
+					th:field="*{trackerConfiguration}" />
+
+				<table>
+					<tr>
+						<td><span class="label label-default">URL:</span></td>
+						<td><input type="text" class="form-control" placeholder="Url"
+							th:field="*{urlsToTrack}" style="min-widthtabela: 300px;" /></td>
+					</tr>
+
+				</table>
+				<br />
+
+				<div class="text-center">
+					<button type="submit" class="btn btn-primary-adin">Adicionar</button>
+				</div>
+
+
+			</div>
+
+
+
+			<div class="panel-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Url</th>
+							<th>Ação</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="url : ${urls}">
+							<td th:text="${url.urlsToTrack}"></td>
+							<td style="width: 35px;"><a href="#" class="btn btn-sm btn-danger" th:href="${'url/excluir/' + url.trackerConfiguration.id}">Excluir</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
 		</form>
-		<a href="#" class="btn btn-sm btn-primary-adin" th:href="${'/tag/index'}">Voltar</a>
 
+
+
+
+
+		<form class="form-inline" method="POST"
+			th:object="${trackedHtmlControl}"
+			th:action="@{/cadastro/customer/trackedhtmlcontrol}"
+			style="margin: 20px 0">
+
+			<h2>Tracked html Control</h2>
+
+			<div class="form-group">
+				<input type="hidden" class="form-control" placeholder="Id"
+					th:field="*{id}" />
+
+				<table>
+					<tr>
+						<td><span class="label label-default">Html control
+								value:</span></td>
+						<td><input type="text" class="form-control"
+							placeholder="Html control value" th:field="*{htmlControlValue}"
+							style="min-width: 300px;" /></td>
+					</tr>
+					<tr>
+						<td><span class="label label-default">Atribute to
+								monitor:</span></td>
+						<td><input type="text" class="form-control"
+							placeholder="Atribute to monitor"
+							th:field="*{attributeToMonitor}" style="min-width: 300px;" /></td>
+					</tr>
+
+
+
+				</table>
+				<br />
+
+				<div class="text-center">
+					<button type="submit" class="btn btn-primary-adin">Adicionar</button>
+				</div>
+
+
+			</div>
+
+
+
+			<div class="panel-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Attribute</th>
+							<th>Html to control</th>
+							<th>Ação</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="t : ${trackedHtmlControls}">
+							<td th:text="${t.attributeToMonitor}"></td>
+							<td th:text="${t.htmlControlValue}"></td>
+							<td style="width: 35px;"><a href="#" class="btn btn-sm btn-danger" th:href="${'trackedhtmlcontrol/excluir/' + t.id}">Excluir</a></td>
+						
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</form>
+
+
+
+
+
+		<form class="form-inline" method="POST" th:object="${modalContent}"
+			th:action="@{/cadastro/customer/modalcontent}" style="margin: 20px 0">
+
+			<h2>Modal content</h2>
+
+			<div class="form-group">
+				<input type="hidden" class="form-control" placeholder="Id"
+					th:field="*{id}" />
+
+				<table>
+					<tr>
+						<td><span class="label label-default">Html content:</span></td>
+						<td><input type="text" class="form-control"
+							placeholder="Html content" th:field="*{htmlContent}"
+							style="min-width: 300px;" /></td>
+					</tr>
+					<tr>
+						<td><span class="label label-default">Priority:</span></td>
+						<td><input type="text" class="form-control"
+							placeholder="Priority" th:field="*{priority}"
+							style="min-width: 300px;" /></td>
+					</tr>
+					<tr>
+						<td><span class="label label-default">Tracked Product
+								Content:</span></td>
+						<td><input type="text" class="form-control"
+							placeholder="Tracked Product Content"
+							th:field="*{trackedProductContent}" style="min-width: 300px;" /></td>
+					</tr>
+
+
+
+				</table>
+				<br />
+
+				<div class="text-center">
+					<button type="submit" class="btn btn-primary-adin">Adicionar</button>
+				</div>
+
+
+			</div>
+
+
+
+			<div class="panel-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Html content</th>
+							<th>Priority</th>
+							<th>Tracked Product Content</th>
+							<th>Ação</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="m : ${modals}">
+							<td th:text="${m.htmlContent}"></td>
+							<td th:text="${m.priority}"></td>
+							<td th:text="${m.trackedProductContent}"></td>
+							<td style="width: 35px;"><a href="#" class="btn btn-sm btn-danger" th:href="${'modalcontent/excluir/' + m.id}">Excluir</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</form>
+
+
+
+
+
+
+
+
+
+
+		<form class="form-inline" method="POST"
+			th:object="${userTrackingConfiguration}"
+			th:action="@{/cadastro/customer/userTrackingConfiguration}"
+			style="margin: 20px 0">
+
+			<h2>User tracking configuration</h2>
+
+			<div class="form-group">
+				<input type="hidden" class="form-control" placeholder="Id"
+					th:field="*{id}" />
+
+				<table>
+					<tr>
+						<td><span class="label label-default">Attribute to
+								monitor:</span></td>
+						<td><input type="text" class="form-control"
+							placeholder="Attribute to monitor"
+							th:field="*{attributeToMonitor}" style="min-width: 300px;" /></td>
+					</tr>
+					<tr>
+						<td><span class="label label-default">Attribute to
+								save:</span></td>
+						<td><input type="text" class="form-control"
+							placeholder="Attribute to save" th:field="*{attributeToSave}"
+							style="min-width: 300px;" /></td>
+					</tr>
+					<tr>
+						<td><span class="label label-default">Attribute value:</span></td>
+						<td><input type="text" class="form-control"
+							placeholder="Attribute value" th:field="*{attributeValue}"
+							style="min-width: 300px;" /></td>
+					</tr>
+
+
+
+				</table>
+				<br />
+
+				<div class="text-center">
+					<button type="submit" class="btn btn-primary-adin">Adicionar</button>
+				</div>
+
+
+			</div>
+
+
+
+			<div class="panel-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Attribute to monitor</th>
+							<th>Attribute value</th>
+							<th>Attribute to save</th>
+							<th>Ação</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="u : ${users}">
+							<td th:text="${u.attributeToMonitor}"></td>
+							<td th:text="${u.attributeToSave}"></td>
+							<td th:text="${u.attributeValue}"></td>
+							<td style="width: 35px;"><a href="#" class="btn btn-sm btn-danger" th:href="${'usertrackingconfiguration/excluir/' + u.id}">Excluir</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</form>
+
+
+
+
+
+
+
+		<form class="form-inline" method="POST"
+			th:object="${userTrackingConfigurationTriggerButton}"
+			th:action="@{/cadastro/customer/userTrackingConfigurationTriggerButton}"
+			style="margin: 20px 0">
+
+			<h2>User tracking configuraltion trigger button</h2>
+
+			<div class="form-group">
+
+
+				<table>
+					<tr>
+						<td><span class="label label-default">Trigger button:</span></td>
+						<td><input type="text" class="form-control"
+							placeholder="Trigger button" th:field="*{triggerButton}"
+							style="min-width: 300px;" /></td>
+					</tr>
+					<tr>
+						<td><span class="label label-default">Trigger button
+								key:</span></td>
+						<td><input type="text" class="form-control"
+							placeholder="Trigger button key" th:field="*{triggerButtonKey}"
+							style="min-width: 300px;" /></td>
+					</tr>
+
+
+
+				</table>
+				<br />
+
+				<div class="text-center">
+					<button type="submit" class="btn btn-primary-adin">Adicionar</button>
+				</div>
+
+
+			</div>
+
+
+
+			<div class="panel-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Trigger button</th>
+							<th>Trigger button key</th>
+							<th>Ação</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="u : ${userTrackings}">
+							<td th:text="${u.triggerButton}"></td>
+							<td th:text="${u.triggerButtonKey}"></td>
+							<td style="width: 35px;"><a href="#" class="btn btn-sm btn-danger" th:href="${'usertrackingconfigurationtriggerbutton/excluir/' + u.userTrackingConfiguration.id}">Excluir</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</form>
+
+
+
+
+		<a href="#" class="btn btn-sm btn-primary-adin"
+			th:href="${'/tag/index'}">Voltar</a>
 
 	</div>
+
+
 
 
 </body>

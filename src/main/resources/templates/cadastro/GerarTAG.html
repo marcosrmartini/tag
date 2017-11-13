@@ -14,8 +14,8 @@
 	margin-right: auto;
 }
 
-.btn{
-	float:left
+.btn {
+	float: left
 }
 </style>
 <link
@@ -34,18 +34,31 @@
 </head>
 <body>
 
+
 	<div class="text-center">
 		<img th:src="@{/images/logo.png}" height="80" width="300"
 			align="center" />
 	</div>
 
+
+
 	<div class="jumbotron">
 
 		<form class="form-inline" method="POST" th:object="${customer}"
 			th:action="@{/cadastro/customer}" style="margin: 20px 0">
+			<div class="alert alert-danger" th:text="${mensagem}"
+				th:if="${not #strings.isEmpty(mensagem)}"></div>
+
+			<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+				<div th:each="detailedError : ${#fields.detailedErrors()}">
+					<span th:text="${detailedError.message}"></span>
+				</div>
+			</div>
+
 
 			<div class="form-group pull-right">
-				<a href="#" class="btn btn-sm btn-primary-adin" th:href="${'/tag/cadastro/customer/abrirPesquisa'}">Pesquisar</a>
+				<a href="#" class="btn btn-sm btn-primary-adin"
+					th:href="${'/tag/cadastro/customer/abrirPesquisa'}">Pesquisar</a>
 			</div>
 
 
@@ -59,14 +72,14 @@
 						<td><span class="label label-default">Nome do cliente:</span></td>
 						<td><input type="text" class="form-control"
 							placeholder="Nome do cliente" th:field="*{customerName}"
-							style="min-width: 300px;" /></td>
+							required="required" style="min-width: 300px;" /></td>
 					</tr>
 
 					<tr>
 						<td><span class="label label-default">Public Key</span></td>
 						<td><input type="text" class="form-control"
 							placeholder="PublicKey" th:field="*{publicKey}"
-							style="min-width: 300px;" /></td>
+							style="min-width: 300px;" required="required" /></td>
 					</tr>
 
 				</table>
@@ -94,6 +107,12 @@
 
 			<h2>Urls to track</h2>
 
+			<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+				<div th:each="detailedError : ${#fields.detailedErrors()}">
+					<span th:text="${detailedError.message}"></span>
+				</div>
+			</div>
+
 			<div class="form-group">
 				<input type="hidden" class="form-control" placeholder="Id"
 					th:field="*{trackerConfiguration}" />
@@ -102,7 +121,8 @@
 					<tr>
 						<td><span class="label label-default">URL:</span></td>
 						<td><input type="text" class="form-control" placeholder="Url"
-							th:field="*{urlsToTrack}" style="min-widthtabela: 300px;" /></td>
+							th:field="*{urlsToTrack}" style="min-widthtabela: 300px;"
+							required="required" /></td>
 					</tr>
 
 				</table>
@@ -128,7 +148,9 @@
 					<tbody>
 						<tr th:each="url : ${urls}">
 							<td th:text="${url.urlsToTrack}"></td>
-							<td style="width: 35px;"><a href="#" class="btn btn-sm btn-danger" th:href="${'url/excluir/' + url.trackerConfiguration.id}">Excluir</a></td>
+							<td style="width: 35px;"><a href="#"
+								class="btn btn-sm btn-danger"
+								th:href="${'url/excluir/' + url.trackerConfiguration.id}">Excluir</a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -145,7 +167,7 @@
 			th:action="@{/cadastro/customer/trackedhtmlcontrol}"
 			style="margin: 20px 0">
 
-			<h2>Tracked html Control</h2>
+			<h2>Tracked html control</h2>
 
 			<div class="form-group">
 				<input type="hidden" class="form-control" placeholder="Id"
@@ -156,14 +178,14 @@
 						<td><span class="label label-default">Html control
 								value:</span></td>
 						<td><input type="text" class="form-control"
-							placeholder="Html control value" th:field="*{htmlControlValue}"
-							style="min-width: 300px;" /></td>
+							required="required" placeholder="Html control value"
+							th:field="*{htmlControlValue}" style="min-width: 300px;" /></td>
 					</tr>
 					<tr>
 						<td><span class="label label-default">Atribute to
 								monitor:</span></td>
 						<td><input type="text" class="form-control"
-							placeholder="Atribute to monitor"
+							required="required" placeholder="Atribute to monitor"
 							th:field="*{attributeToMonitor}" style="min-width: 300px;" /></td>
 					</tr>
 
@@ -194,8 +216,10 @@
 						<tr th:each="t : ${trackedHtmlControls}">
 							<td th:text="${t.attributeToMonitor}"></td>
 							<td th:text="${t.htmlControlValue}"></td>
-							<td style="width: 35px;"><a href="#" class="btn btn-sm btn-danger" th:href="${'trackedhtmlcontrol/excluir/' + t.id}">Excluir</a></td>
-						
+							<td style="width: 35px;"><a href="#"
+								class="btn btn-sm btn-danger"
+								th:href="${'trackedhtmlcontrol/excluir/' + t.id}">Excluir</a></td>
+
 						</tr>
 					</tbody>
 				</table>
@@ -220,20 +244,20 @@
 					<tr>
 						<td><span class="label label-default">Html content:</span></td>
 						<td><input type="text" class="form-control"
-							placeholder="Html content" th:field="*{htmlContent}"
-							style="min-width: 300px;" /></td>
+							required="required" placeholder="Html content"
+							th:field="*{htmlContent}" style="min-width: 300px;" /></td>
 					</tr>
 					<tr>
 						<td><span class="label label-default">Priority:</span></td>
 						<td><input type="text" class="form-control"
-							placeholder="Priority" th:field="*{priority}"
+							required="required" placeholder="Priority" th:field="*{priority}"
 							style="min-width: 300px;" /></td>
 					</tr>
 					<tr>
 						<td><span class="label label-default">Tracked Product
 								Content:</span></td>
 						<td><input type="text" class="form-control"
-							placeholder="Tracked Product Content"
+							required="required" placeholder="Tracked Product Content"
 							th:field="*{trackedProductContent}" style="min-width: 300px;" /></td>
 					</tr>
 
@@ -266,7 +290,9 @@
 							<td th:text="${m.htmlContent}"></td>
 							<td th:text="${m.priority}"></td>
 							<td th:text="${m.trackedProductContent}"></td>
-							<td style="width: 35px;"><a href="#" class="btn btn-sm btn-danger" th:href="${'modalcontent/excluir/' + m.id}">Excluir</a></td>
+							<td style="width: 35px;"><a href="#"
+								class="btn btn-sm btn-danger"
+								th:href="${'modalcontent/excluir/' + m.id}">Excluir</a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -274,7 +300,11 @@
 
 		</form>
 
-
+ <tr th:each="message : ${messages}">
+        <td th:text="${message.id}">1</td>
+        <td><a href="#" th:text="${message.title}">Title ...</a></td>
+        <td th:text="${message.text}">Text ...</td>
+    </tr>
 
 
 
@@ -299,21 +329,21 @@
 						<td><span class="label label-default">Attribute to
 								monitor:</span></td>
 						<td><input type="text" class="form-control"
-							placeholder="Attribute to monitor"
+							required="required" placeholder="Attribute to monitor"
 							th:field="*{attributeToMonitor}" style="min-width: 300px;" /></td>
 					</tr>
 					<tr>
 						<td><span class="label label-default">Attribute to
 								save:</span></td>
 						<td><input type="text" class="form-control"
-							placeholder="Attribute to save" th:field="*{attributeToSave}"
-							style="min-width: 300px;" /></td>
+							required="required" placeholder="Attribute to save"
+							th:field="*{attributeToSave}" style="min-width: 300px;" /></td>
 					</tr>
 					<tr>
 						<td><span class="label label-default">Attribute value:</span></td>
 						<td><input type="text" class="form-control"
-							placeholder="Attribute value" th:field="*{attributeValue}"
-							style="min-width: 300px;" /></td>
+							required="required" placeholder="Attribute value"
+							th:field="*{attributeValue}" style="min-width: 300px;" /></td>
 					</tr>
 
 
@@ -345,7 +375,9 @@
 							<td th:text="${u.attributeToMonitor}"></td>
 							<td th:text="${u.attributeToSave}"></td>
 							<td th:text="${u.attributeValue}"></td>
-							<td style="width: 35px;"><a href="#" class="btn btn-sm btn-danger" th:href="${'usertrackingconfiguration/excluir/' + u.id}">Excluir</a></td>
+							<td style="width: 35px;"><a href="#"
+								class="btn btn-sm btn-danger"
+								th:href="${'usertrackingconfiguration/excluir/' + u.id}">Excluir</a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -373,15 +405,15 @@
 					<tr>
 						<td><span class="label label-default">Trigger button:</span></td>
 						<td><input type="text" class="form-control"
-							placeholder="Trigger button" th:field="*{triggerButton}"
-							style="min-width: 300px;" /></td>
+							required="required" placeholder="Trigger button"
+							th:field="*{triggerButton}" style="min-width: 300px;" /></td>
 					</tr>
 					<tr>
 						<td><span class="label label-default">Trigger button
 								key:</span></td>
 						<td><input type="text" class="form-control"
-							placeholder="Trigger button key" th:field="*{triggerButtonKey}"
-							style="min-width: 300px;" /></td>
+							required="required" placeholder="Trigger button key"
+							th:field="*{triggerButtonKey}" style="min-width: 300px;" /></td>
 					</tr>
 
 
@@ -411,10 +443,29 @@
 						<tr th:each="u : ${userTrackings}">
 							<td th:text="${u.triggerButton}"></td>
 							<td th:text="${u.triggerButtonKey}"></td>
-							<td style="width: 35px;"><a href="#" class="btn btn-sm btn-danger" th:href="${'usertrackingconfigurationtriggerbutton/excluir/' + u.userTrackingConfiguration.id}">Excluir</a></td>
+							<td style="width: 35px;"><a href="#"
+								class="btn btn-sm btn-danger"
+								th:href="${'usertrackingconfigurationtriggerbutton/excluir/' + u.userTrackingConfiguration.id}">Excluir</a></td>
 						</tr>
 					</tbody>
 				</table>
+			</div>
+
+		</form>
+
+
+
+		<form class="form-inline" style="margin: 20px 0">
+
+			<div class="form-group">
+				<label for="comment">Script:</label>
+				
+				<div th:each="tag : ${tags}">
+					<textarea class="form-control" rows="8" cols="80" id="script" th:text="${tag}" ></textarea>
+				</div>
+				
+				
+				
 			</div>
 
 		</form>

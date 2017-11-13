@@ -1,5 +1,9 @@
 package br.com.adin.tag.controller;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.adin.tag.model.Customer;
 import br.com.adin.tag.model.ModalContent;
@@ -53,51 +58,83 @@ public class CustomerController {
 
 	private TrackerConfiguration tracker;
 
+	private UrlsToTrack url;
+
 	private UserTrackingConfiguration userTracking;
 
 	@GetMapping
-	private ModelAndView listar() {
+	private ModelAndView novo(Customer customer) {
 		ModelAndView mv = new ModelAndView("/cadastro/GerarTAG");
 		this.tracker = new TrackerConfiguration();
-		mv.addObject(new Customer());
+		mv.addObject(customer);
 		mv.addObject(new UrlsToTrack());
 		mv.addObject(new TrackedHtmlControl());
 		mv.addObject(new UserTrackingConfiguration());
 		mv.addObject(new UserTrackingConfigurationTriggerButton());
 
+		mv.addObject("tag", "");
+
 		mv.addObject(new ModalContent());
 		return mv;
 	}
-	
+
+	private List<String> gerarTAG() {
+
+		List<String> result = new ArrayList<String>();
+		List<UrlsToTrack> lista = this.urls.listarUrls(this.tracker.getId());
+
+		for (UrlsToTrack u : lista) {
+			String sa = "<script type=\"text/javascript\"> \n"
+					+ "var public_key = \""
+					+ customer.getPublicKey()
+					+ "\"; \n"
+					+ "var url = \""
+					+ u.getUrlsToTrack()
+					+ "\"/claravista.js\"; \n"
+					+ "var tag = document.createElement('script'); \n"
+					+ "tag.src = url; \n"
+					+ "document.getElementsByTagName('head')[0].appendChild(tag); \n"
+					+ "</script>" + "";
+			result.add(sa);
+		}
+
+		return result;
+	}
+
 	@GetMapping("abrirPesquisa")
-	private ModelAndView abrirPesquisa(){
+	private ModelAndView abrirPesquisa() {
 		System.out.println(">>>>>>>>>>>>> Entrei aqui");
 		ModelAndView mv = new ModelAndView("/cadastro/PesquisaTAG");
 		mv.addObject(new Customer());
 		return mv;
 	}
-	
+
 	@PostMapping("pesquisaTAG")
-	private ModelAndView pesquisaProduto(@ModelAttribute("customer") Customer customer){
+	private ModelAndView pesquisaProduto(
+			@ModelAttribute("customer") Customer customer) {
 		ModelAndView mv = new ModelAndView("/cadastro/PesquisaTAG");
-		mv.addObject("customers", customers.pesquisaPorNome("%" + customer.getCustomerName().toUpperCase() + "%"));
+		mv.addObject(
+				"customers",
+				customers.pesquisaPorNome("%"
+						+ customer.getCustomerName().toUpperCase() + "%"));
 		return mv;
 	}
-	
 
 	@GetMapping("editar/{id}")
 	public ModelAndView edit(@PathVariable("id") String id) {
 		ModelAndView mv = new ModelAndView("cadastro/GerarTAG");
-		
+
 		this.customer = customers.findOne(id);
 		this.tracker = trackers.buscarTracker(id);
 		this.userTracking = users.Pesquisar(this.tracker.getId());
-		
+
 		mv.addObject(new UrlsToTrack());
 		mv.addObject(new TrackedHtmlControl());
 		mv.addObject(new ModalContent());
 		mv.addObject(new UserTrackingConfiguration());
 		mv.addObject(new UserTrackingConfigurationTriggerButton());
+
+		mv.addObject("tags", this.gerarTAG());
 
 		mv.addObject("urls", urls.listarUrls(this.tracker.getId()));
 		mv.addObject("trackedHtmlControls",
@@ -140,18 +177,23 @@ public class CustomerController {
 	}
 
 	@GetMapping("editar/usertrackingconfigurationtriggerbutton/excluir/{id}")
-	public String deleteUserTrackingConfigurationTriggerButton(@PathVariable("id") String id) {
+	public String deleteUserTrackingConfigurationTriggerButton(
+			@PathVariable("id") String id) {
 		userTrackings.deletar(id);
 		return "redirect:/cadastro/customer/editar/" + this.customer.getId();
 	}
 
-	
-	
-	
+	// @RequestMapping(method = RequestMethod.POST)
 	@PostMapping
-	public String salvar(Customer customer) {
+	public String salvar(Customer customer, RedirectAttributes attributes) {
+
+		// validar se existe e mostra mensagem
+		attributes.addFlashAttribute("mensagem",
+				"Mensagem para usuario ja cadastrado");
+
 		this.customer = customers.save(customer);
 		this.tracker.setCustomer(this.customer);
+		this.tracker.setDate(new Date());
 		this.tracker = trackers.save(tracker);
 		return "redirect:/cadastro/customer/editar/" + this.customer.getId();
 	}

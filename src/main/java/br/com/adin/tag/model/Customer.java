@@ -1,7 +1,11 @@
 package br.com.adin.tag.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import java.util.List;
 
 
@@ -19,9 +23,12 @@ public class Customer implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String id;
 
+	@NotBlank(message = "Public key deve ser preenchida")
 	@Column(name="public_key")
 	private String publicKey;
 	
+
+	@NotBlank(message = "Customer name deve ser preenchida")
 	@Column(name="customer_name")
 	private String customerName;
 

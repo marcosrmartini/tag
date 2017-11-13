@@ -1,8 +1,18 @@
 package br.com.adin.tag.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
@@ -18,6 +28,9 @@ public class TrackerConfiguration implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String id;
+	
+	@Column(name = "date")
+	private Date date;
 
 	//bi-directional many-to-one association to ModalContent
 	@OneToMany(mappedBy="trackerConfiguration")
@@ -145,5 +158,15 @@ public class TrackerConfiguration implements Serializable {
 
 		return userTrackingConfiguration;
 	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
+	
 
 }

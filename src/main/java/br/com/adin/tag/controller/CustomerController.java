@@ -188,8 +188,14 @@ public class CustomerController {
 	public String salvar(Customer customer, RedirectAttributes attributes) {
 
 		// validar se existe e mostra mensagem
-		attributes.addFlashAttribute("mensagem",
-				"Mensagem para usuario ja cadastrado");
+		Customer c = customers.pesquisaPorNomePublicKey(
+				customer.getCustomerName(), customer.getPublicKey());
+
+		if (c != null) {
+			attributes.addFlashAttribute("mensagem",
+					"Cliente e public key já cadastrado");
+			this.novo(customer);
+		}
 
 		this.customer = customers.save(customer);
 		this.tracker.setCustomer(this.customer);

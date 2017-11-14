@@ -10,7 +10,7 @@
 <title>Relatório de TAGs</title>
 <style type="text/css">
 .jumbotron {
-	width: 500px;
+	width: 800px;
 	margin-top: 20px;
 	margin-left: auto;
 	margin-right: auto;
@@ -51,8 +51,8 @@
 
 	<div class="jumbotron">
 
-		<form class="form-inline" method="POST" th:object="${tag}"
-			th:action="@{/cadastro/tag}" style="margin: 20px 0">
+		<form class="form-inline" method="POST" th:object="${relatorioTAG}"
+			th:action="@{/relatorio/relatorio_tags}" style="margin: 20px 0">
 
 
 			<div class="form-group">
@@ -62,18 +62,18 @@
 					<tr>
 						<td><span class="label label-default">Nome do cliente:</span></td>
 						<td><select class="form-control" placeholder="Fabricante"
-							style="min-width: 300px;">
+							th:field="*{customer}" style="min-width: 300px;">
 								<option value="" th:text="#{common.select.prompt}"></option>
-								<option th:each="f : ${fabricantes}"
-									th:value="${f.idFabricante}" th:text="${f.razaoSocial}">Fabricante
-									1</option>
+								<option th:each="c : ${customers}" th:value="${c.id}"
+									th:text="${c.customerName}">Customer 1</option>
 						</select></td>
 					</tr>
 					<tr>
 						<td><span class="label label-default">Inicio:</span></td>
 						<td>
 							<div>
-								<input type="text" name="data" class="datepicker form-control" />
+								<input type="text" name="data" class="datepicker form-control"
+									th:field="*{inicio}" style="min-width: 300px;" />
 							</div>
 						</td>
 					</tr>
@@ -82,7 +82,8 @@
 						<td><span class="label label-default">Termino:</span></td>
 						<td>
 							<div>
-								<input type="text" name="data" class="datepicker form-control" />
+								<input type="text" name="data" class="datepicker form-control"
+									th:field="*{termino}" style="min-width: 300px;"/>
 							</div>
 						</td>
 					</tr>
@@ -92,13 +93,36 @@
 				<br />
 
 				<div class="text-center">
-					<button type="button" class="btn btn-primary-adin"
-						style="min-width: 300px;"
-						onclick="location.href='/cadastro/produto'">Consultar</button>
+					<button type="submit" class="btn btn-primary-adin">Pesquisar</button>
 				</div>
 
 			</div>
 
+			<div class="panel-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Customer name</th>
+							<th>Public key</th>
+							<th>Date</th>
+							<th>Ação</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="tag : ${tags}">
+							<td th:text="${tag.id}"></td>
+							<td th:text="${tag.customer.customerName}"></td>
+							<td th:text="${tag.customer.publicKey}"></td>
+							<td th:text="${tag.date}"></td>
+
+							<td style="width: 35px;"><a href="#"
+								class="btn btn-sm btn-primary-adin"
+								th:href="${'/tag/cadastro/customer/editar/' + tag.customer.id}">Abrir</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
 
 

@@ -88,9 +88,8 @@ public class CustomerController {
 					+ "var public_key = \""
 					+ customer.getPublicKey()
 					+ "\"; \n"
-					+ "var url = \""
-					+ u.getUrlsToTrack()
-					+ "\"/claravista.js\"; \n"
+					+ "var url = \"http://104.131.91.97/claravista.js\"; \n"
+					//+ u.getUrlsToTrack()
 					+ "var tag = document.createElement('script'); \n"
 					+ "tag.src = url; \n"
 					+ "document.getElementsByTagName('head')[0].appendChild(tag); \n"

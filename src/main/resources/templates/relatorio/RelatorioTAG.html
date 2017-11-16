@@ -61,7 +61,7 @@
 				<table>
 					<tr>
 						<td><span class="label label-default">Nome do cliente:</span></td>
-						<td><select class="form-control" placeholder="Fabricante"
+						<td><select class="form-control" placeholder="Fabricante" required="required"
 							th:field="*{customer}" style="min-width: 300px;">
 								<option value="" th:text="#{common.select.prompt}"></option>
 								<option th:each="c : ${customers}" th:value="${c.id}"
@@ -73,7 +73,7 @@
 						<td>
 							<div>
 								<input type="text" name="data" class="datepicker form-control"
-									th:field="*{inicio}" style="min-width: 300px;" />
+									th:field="*{inicio}" style="min-width: 300px;" required="required"/>
 							</div>
 						</td>
 					</tr>
@@ -83,7 +83,7 @@
 						<td>
 							<div>
 								<input type="text" name="data" class="datepicker form-control"
-									th:field="*{termino}" style="min-width: 300px;"/>
+									th:field="*{termino}" style="min-width: 300px; required="required""/>
 							</div>
 						</td>
 					</tr>

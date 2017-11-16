@@ -32,14 +32,6 @@
 
 <script type="text/javascript" th:src="@{/js/bootstrap-datepicker.js}"></script>
 
-<script>
-	$(document).ready(function() {
-		$('.datepicker').datepicker({
-			format : 'dd/mm/yyyy',
-			language : 'pt-BR'
-		});
-	});
-</script>
 
 </head>
 <body>
@@ -83,7 +75,7 @@
 						<td>
 							<div>
 								<input type="text" name="data" class="datepicker form-control"
-									th:field="*{termino}" style="min-width: 300px; required="required""/>
+									th:field="*{termino}" style="min-width: 300px;" required="required"/>
 							</div>
 						</td>
 					</tr>
@@ -131,6 +123,14 @@
 		<a href="#" class="btn btn-sm btn-primary-adin"
 			th:href="${'/tag/index'}">Voltar</a>
 	</div>
+<script>
+	$(document).ready(function() {
+		$('.datepicker').datepicker({
+			format : 'dd/mm/yyyy',
+			language : 'pt-BR'
+		});
+	});
+</script>
 
 </body>
 </html>

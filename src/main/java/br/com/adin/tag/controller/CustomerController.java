@@ -81,21 +81,21 @@ public class CustomerController {
 	private List<String> gerarTAG() {
 
 		List<String> result = new ArrayList<String>();
-		List<UrlsToTrack> lista = this.urls.listarUrls(this.tracker.getId());
+		// List<UrlsToTrack> lista = this.urls.listarUrls(this.tracker.getId());
 
-		for (UrlsToTrack u : lista) {
-			String sa = "<script type=\"text/javascript\"> \n"
-					+ "var public_key = \""
-					+ customer.getPublicKey()
-					+ "\"; \n"
-					+ "var url = \"http://104.131.91.97/claravista.js\"; \n"
-					//+ u.getUrlsToTrack()
-					+ "var tag = document.createElement('script'); \n"
-					+ "tag.src = url; \n"
-					+ "document.getElementsByTagName('head')[0].appendChild(tag); \n"
-					+ "</script>" + "";
-			result.add(sa);
-		}
+		// for (UrlsToTrack u : lista) {
+		String sa = "<script type=\"text/javascript\"> \n"
+				+ "var public_key = \""
+				+ customer.getPublicKey()
+				+ "\"; \n"
+				+ "var url = \"http://104.131.91.97/claravista.js\"; \n"
+				// + u.getUrlsToTrack()
+				+ "var tag = document.createElement('script'); \n"
+				+ "tag.src = url; \n"
+				+ "document.getElementsByTagName('head')[0].appendChild(tag); \n"
+				+ "</script>" + "";
+		result.add(sa);
+		// }
 
 		return result;
 	}

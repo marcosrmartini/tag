@@ -31,8 +31,9 @@
 <script type="text/javascript"
 	src="/tag/webjars/jquery/3.1.1/jquery.min.js"></script>
 
-<script type="text/javascript"
-	th:src="@{/js/GerarTAG.js}"></script>
+<script type="text/javascript" th:src="@{/js/GerarTAG.js}"></script>
+
+<script type="text/javascript" th:src="@{/js/jquery.blockUI.js}"></script>
 
 </head>
 <body>
@@ -106,7 +107,8 @@
 
 
 		<form class="form-inline" method="POST" th:object="${urlsToTrack}"
-			th:action="@{/cadastro/customer/url}" style="margin: 20px 0">
+			id="frmUrls" th:action="@{/cadastro/customer/url}"
+			style="margin: 20px 0">
 
 			<h2>Urls to track</h2>
 
@@ -165,7 +167,7 @@
 
 
 
-		<form class="form-inline" method="POST"
+		<form class="form-inline" method="POST" id="frmTrackedHtmlControl"
 			th:object="${trackedHtmlControl}"
 			th:action="@{/cadastro/customer/trackedhtmlcontrol}"
 			style="margin: 20px 0">
@@ -235,7 +237,8 @@
 
 
 		<form class="form-inline" method="POST" th:object="${modalContent}"
-			th:action="@{/cadastro/customer/modalcontent}" style="margin: 20px 0">
+			id="frmModalContent" th:action="@{/cadastro/customer/modalcontent}"
+			style="margin: 20px 0">
 
 			<h2>Modal content</h2>
 
@@ -303,11 +306,11 @@
 
 		</form>
 
- <tr th:each="message : ${messages}">
-        <td th:text="${message.id}">1</td>
-        <td><a href="#" th:text="${message.title}">Title ...</a></td>
-        <td th:text="${message.text}">Text ...</td>
-    </tr>
+		<tr th:each="message : ${messages}">
+			<td th:text="${message.id}">1</td>
+			<td><a href="#" th:text="${message.title}">Title ...</a></td>
+			<td th:text="${message.text}">Text ...</td>
+		</tr>
 
 
 
@@ -317,6 +320,7 @@
 
 
 		<form class="form-inline" method="POST"
+			id="frmUserTrackingConfiguration"
 			th:object="${userTrackingConfiguration}"
 			th:action="@{/cadastro/customer/userTrackingConfiguration}"
 			style="margin: 20px 0">
@@ -462,13 +466,14 @@
 
 			<div class="form-group">
 				<label for="comment">Script:</label>
-				
+
 				<div th:each="tag : ${tags}">
-					<textarea class="form-control" rows="8" cols="80" id="script" th:text="${tag}" ></textarea>
+					<textarea class="form-control" rows="8" cols="80" id="script"
+						th:text="${tag}"></textarea>
 				</div>
-				
-				
-				
+
+
+
 			</div>
 
 		</form>
